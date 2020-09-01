@@ -1,6 +1,8 @@
 package movieTicket;
 
 import javax.persistence.*;
+
+import lombok.Builder;
 import org.springframework.beans.BeanUtils;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class Booking {
     private Long quantity;
     private Double price;
     private String bookingStatus;
+
 
     @PostPersist
     public void onPostPersist(){
@@ -87,7 +90,13 @@ public class Booking {
         this.bookingStatus = bookingStatus;
     }
 
-
-
+    @Builder
+    public Booking(Long customerId, String seatIdList, Long quantity, Double price, String bookingStatus) {
+        this.customerId = customerId;
+        this.seatIdList = seatIdList;
+        this.quantity = quantity;
+        this.price = price;
+        this.bookingStatus = bookingStatus;
+    }
 
 }
