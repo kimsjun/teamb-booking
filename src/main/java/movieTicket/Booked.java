@@ -6,7 +6,7 @@ public class Booked extends AbstractEvent {
     private Long quantity;
     private Double price;
     private String bookingStatus;
-    private String seatIdList;
+    private Long seatId;
     private Long bookingId;
 
     public Long getCustomerId() {
@@ -37,12 +37,12 @@ public class Booked extends AbstractEvent {
     public void setOrderStatus(String bookingStatus) {
         this.bookingStatus = bookingStatus;
     }
-    public String getSeatIdList() {
-        return seatIdList;
+    public Long getSeatId() {
+        return seatId;
     }
 
-    public void setSeatIdList(String seatIdList) {
-        this.seatIdList = seatIdList;
+    public void setSeatId(Long seatId) {
+        this.seatId = seatId;
     }
     public Long getBookingId() {
         return bookingId;

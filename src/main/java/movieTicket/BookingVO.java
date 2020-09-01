@@ -8,7 +8,7 @@ public class BookingVO {
 
     private Long bookingId;
     private Long customerId;
-    private String seatIdList;
+    private Long seatId;
     private Long quantity;
     private Double price;
     private String bookingStatus;
@@ -27,12 +27,12 @@ public class BookingVO {
     public void setCustomerId(Long customerId) {
         this.customerId = customerId;
     }
-    public String getSeatIdList() {
-        return seatIdList;
+    public Long getSeatId() {
+        return seatId;
     }
 
-    public void setSeatIdList(String seatIdList) {
-        this.seatIdList = seatIdList;
+    public void setSeatId(Long seatId) {
+        this.seatId = seatId;
     }
     public Long getQuantity() {
         return quantity;
@@ -58,7 +58,7 @@ public class BookingVO {
 
     public Booking toEntity() {
         return Booking.builder().customerId(customerId)
-                .seatIdList(seatIdList)
+                .seatId(seatId)
                 .quantity(quantity)
                 .price(price)
                 .bookingStatus(bookingStatus)

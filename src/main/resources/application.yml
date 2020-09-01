@@ -1,7 +1,9 @@
 server:
   port: 8080
 ---
-
+api:
+  url:
+    payment: http://localhost:8082
 spring:
   profiles: default
   h2:

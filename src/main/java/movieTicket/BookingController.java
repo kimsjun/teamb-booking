@@ -13,11 +13,18 @@ import java.util.List;
   @Autowired
   BookingService bookingService;
 
-  @PostMapping("/bookings/test")
+  @PostMapping("/bookings")
   public Long test(@RequestBody BookingVO bookingVO) {
    return bookingService.bookSave(bookingVO);
   }
 
+
+  @PutMapping("/bookings/{id}")
+  public String test(@PathVariable("id") final Long id, @RequestBody BookingVO bookingVO) {
+   bookingVO.setBookingId(id);
+   bookingService.bookUpdate(bookingVO);
+   return "Canceled";
+  }
 
 
  }

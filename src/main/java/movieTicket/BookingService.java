@@ -13,4 +13,15 @@ public class BookingService {
         return bookingRepository.save(bookingVO.toEntity()).getBookingId();
     }
 
+    public Long bookSaveTest(Booking booking) {
+        return bookingRepository.save(booking).getBookingId();
+    }
+
+
+    public void bookUpdate(BookingVO bookingVO) {
+        bookingRepository.findById(bookingVO.getBookingId()).ifPresent((booking -> {
+            booking.setBookingStatus("cancel");
+            bookingRepository.save(booking);
+        }));
+    }
 }
