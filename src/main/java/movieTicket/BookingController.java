@@ -14,8 +14,8 @@ import java.util.List;
   BookingService bookingService;
 
   @PostMapping("/bookings/test")
-  public Long test(@RequestBody Booking booking) {
-   return bookingService.bookSave(booking);
+  public Long test(@RequestBody BookingVO bookingVO) {
+   return bookingService.bookSave(bookingVO);
   }
 
 
