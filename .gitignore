@@ -5,6 +5,17 @@
 ### Java ###
 # Compiled class file
 *.class
+/target/
+**/target
+
+# IntelliJ project files
+.idea
+.idea/*.xml
+*.iml
+out
+gen
+build
+rebel.xml
 
 # Log file
 *.log
