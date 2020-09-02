@@ -35,6 +35,48 @@ spring:
         event-out:
           destination: movieTicket
           contentType: application/json
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        # feign의 전역 timeout 설정 : 5초
+        connectTimeout: 300
+        readTimeout: 300
+
+hystrix:
+  threadpool:
+    default:
+      coreSize: 100       #Hystrix 스레드 풀의 기본 크기
+      maximumSize: 100    #Hystrix 스레드 풀의 최대 크기
+      maxQueueSize: -1
+      keepAliveTimeMinutes: 1 #hystrix.threadpool.default.maximumSize 값을 사용하기 위한 설정
+      allowMaximumSizeToDivergeFromCoreSize: false
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          #THREAD 방식에서는 서비스 호출이 별도의 스레드에서 수행, SEMAPHORE 방식에서는 서비스 호출을 위해 별도의 스레드를 만들지 않고 단지 각 서비스에 대한 동시 호출 수를 제한할 뿐
+          strategy: THREAD             #THREAD/SEMAPHORE  SEMAPORE는 외부 IO가 없는 경우 사용 권장
+          thread:
+            # Ribbon의 각 timeout보다 커야 기대하는대로 동작함 (
+            timeoutInMilliseconds: 610
+            interruptOnTimeout: true            #Timeout걸리면 Thread 실행 중단
+            interruptOnCancel: false            #Cancle되었을 때 Thread 실행 중단
+      circuitBreaker:
+        requestVolumeThreshold: 5           # 설정수 값만큼 요청이 들어온 경우만 circut open 여부 결정 함 - 즉 이 값이 20으로 설정되어있다면 10초간 19개의 요청이 들어와서 19개가 전부 실패하더라도 서킷 브레이커는 열리지않는다
+        errorThresholdPercentage: 50        # requestVolumn값을 넘는 요청 중 설정 값이상 비율이 에러인 경우 circuit open
+        sleepWindowInMilliseconds: 5000     # 한번 오픈되면 얼마나 오픈할 것인지
+        enabled: true
+        forceOpen: false
+        forceClosed: false
+      fallback:
+        enabled: true
+
 
 logging:
   level:
@@ -43,7 +85,9 @@ logging:
 server:
   port: 8081
 ---
-
+api:
+  url:
+    payment: http://payment:8080
 spring:
   profiles: docker
   cloud:
